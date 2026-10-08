@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>نظام حضور الطلاب</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <b>نظام حضور الطلاب</b>
+    <nav>
+      <a href="#/" data-route="/">الطلاب</a>
+      <a href="#/attendance" data-route="/attendance">الحضور والانصراف</a>
+    </nav>
+  </div>
+</header>
+
+<div id="loginOverlay" class="login-overlay">
+  <div class="card login-box">
+    <h1 style="margin-top:0">تسجيل دخول المشرف</h1>
+    <div class="field"><label>البريد الإلكتروني</label><input id="loginEmail" type="email" autocomplete="username" dir="ltr"></div>
+    <div class="field"><label>كلمة المرور</label><input id="loginPass" type="password" autocomplete="current-password" dir="ltr"></div>
+    <button type="button" id="loginBtn" class="btn">دخول</button>
+    <div id="loginErr" class="scan-msg err" style="margin-top:12px"></div>
+  </div>
+</div>
+<div id="notice" class="notice" style="display:none">التخزين غير متاح الآن — أي تعديل ما بينحفظ.</div>
+
+<main class="wrap">
+
+  <section id="view-home">
+    <h1>بيانات الطلاب</h1>
+    <div class="card scan-card">
+      <div class="scan-head">
+        <b>مسح بطاقة الطالب</b>
+        <button type="button" id="scanToggle" class="btn-ghost">فتح الكاميرا</button>
+      </div>
+      <div id="scanView" class="scan-view"><video id="scanVideo" playsinline muted></video><div class="scan-frame"></div><div id="scanStatus" class="scan-status">وجّه البطاقة للكاميرا</div></div>
+      <div class="scan-manual">
+        <input id="scanInput" inputmode="numeric" autocomplete="off" placeholder="أو اكتب الرقم الأكاديمي / استخدم جهاز قارئ باركود">
+        <button type="button" id="scanGo" class="btn">تسجيل</button>
+      </div>
+      <div id="ocrDebug" class="ocr-debug"></div>
+      <div id="scanMsg" class="scan-msg"></div>
+    </div>
+    <form id="addForm" class="card">
+      <div class="field"><label>اسم الطالب</label><input id="f-name" required></div>
+      <div class="field"><label>التخصص</label><input id="f-class" required></div>
+      <div class="field"><label>الرقم الأكاديمي</label><input id="f-card" required></div>
+      <button class="btn btn-solid" type="submit">إضافة طالب</button>
+    </form>
+    <ul id="studentList" class="list"></ul>
+  </section>
+
+  <section id="view-attendance">
+    <h1>الحضور والانصراف</h1>
+    <div class="card">
+      <div class="field">
+        <label>الطالب</label>
+        <select id="studentSelect"><option value="">اختر طالب…</option></select>
+      </div>
+    </div>
+    <div class="card status-card" id="statusCard" style="display:none;margin-top:14px">
+      <span class="status-label">الحالة الحالية</span>
+      <span id="statusBadge" class="badge-status">—</span>
+    </div>
+    <table>
+      <thead><tr><th>الحدث</th><th>الوقت</th></tr></thead>
+      <tbody id="logBody"></tbody>
+    </table>
+    <p id="logEmpty" class="empty" style="display:none">اختر طالب لعرض سجل اليوم.</p>
+  </section>
+
+</main>
+
+<script src="firebase-config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
